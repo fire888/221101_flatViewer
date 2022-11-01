@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import dataRooms from '../data/sample-room.json'
-import { createRoom } from './geometryRoom/geometryRoom.js'
+import { createArea } from './geometryRoom/geometryArea.js'
 import { createWall } from './geometryRoom/geomWall'
+import { createArtefact } from './geometryRoom/geomArtefact'
 
 
 export const createMeshFlat = (root) => {
@@ -18,16 +19,20 @@ export const createMeshFlat = (root) => {
             side: THREE.DoubleSide,
             specular: 0x333333,
             vertexColors: true,
-        })
+        }),
+        artefact: new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            side: THREE.DoubleSide,
+            specular: 0x333333,
+            vertexColors: true,
+        }),
     }
 
 
     const arrV = []
     const arrC = []
     const arrUV = []
-    
 
-    //console.log(dataRooms)
 
 
     const cont = new THREE.Object3D() 
@@ -36,7 +41,7 @@ export const createMeshFlat = (root) => {
     const arrRooms = []
     for (let i = 0; i < dataRooms.rooms[0].length; ++i) {
         const r = dataRooms.rooms[0][i]
-        const d = createRoom(r, materials.room)
+        const d = createArea(r, materials.room)
         cont.add(d)
     }
     for (let i = 0; i < dataRooms['outer-perimeter'][0].length; ++i) {
@@ -44,10 +49,20 @@ export const createMeshFlat = (root) => {
         const d = createWall(r, materials.wall)
         cont.add(d)
     }
+    for (let i = 0; i < dataRooms['inner-perimeters'][0].length; ++i) {
+        const r = dataRooms['inner-perimeters'][0][i]
+        const d = createWall(r, materials.wall)
+        cont.add(d)
+    }
+    for (let i = 0; i < dataRooms['objects'][0].length; ++i) {
+        const r = dataRooms['objects'][0][i]
+        const d = createArtefact(r, materials.wall)
+        cont.add(d)
+    }
 
-    const r = dataRooms['outer-perimeter'][0][4]
-    const d = createWall(r, materials.wall)
-    cont.add(d)
+    // const r = dataRooms['outer-perimeter'][0][4]
+    // const d = createWall(r, materials.wall)
+    // cont.add(d)
 
 
 
