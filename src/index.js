@@ -1,20 +1,19 @@
 import * as THREE from 'three'
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 import { GLTFExporter } from './helpers/GLTFExporter'
-import { createMeshGallery } from './Entities/meshGallery.js'
-import { createMeshSuper } from './Entities/meshSuper'
-import { createMeshStairs } from './Entities/meshStairs'
-import { createMeshWall } from './Entities/meshWall'
-import { createUi } from './ui/ui'
+//import { createMeshGallery } from './Entities/meshGallery.js'
+//import { createMeshSuper } from './Entities/meshSuper'
+//import { createMeshStairs } from './Entities/meshStairs'
+//import { createMeshWall } from './Entities/meshWall'
+//import { createUi } from './ui/ui'
 import { createStudio } from './Entities/studio'
-import { createMeshFlat } from './Entities/meshFlat'
+import { createContainerFlat } from './Entities/containerFlat'
 import texture from './assets/scene-model-map.jpg'
 
 
 const createrMeshes = root => {
     const {
         studio, 
-        ui, 
         exporter,
     } = root
 
@@ -67,34 +66,7 @@ const createrMeshes = root => {
         )
     }
 
-    ui.setOnClick('generate wall', () => {
-        removeModel()
-        m = createMeshWall(root)
-        addModel()
-    })
-
-    ui.setOnClick('generate item', () => {
-        removeModel()
-        m = createMeshGallery(root)
-        addModel()
-    })
-    ui.setOnClick('generate stairs', () => {
-        removeModel()
-        m = createMeshSuper(root)
-        addModel()
-    }) 
-    ui.setOnClick('generate one stair', () => {
-        removeModel()
-        m = createMeshStairs(root)
-        addModel()
-    })
-    ui.setOnClick(null, () => {}) 
-    ui.setOnClick('download model', downLoadModel)
-    ui.setOnClick('download texture', () => {
-        downloadImg().then()
-    })
-
-    m = createMeshFlat(root)
+    m = createContainerFlat(root)
     addModel()
 }
 
@@ -115,7 +87,6 @@ async function downloadImg () {
 
 
 const threeApp = () => {
-    const ui = createUi()
     const studio = createStudio()
     const exporter = new GLTFExporter()
 
@@ -126,7 +97,6 @@ const threeApp = () => {
     animate()
 
     const root = {
-        ui,
         studio,
         exporter,
     }
