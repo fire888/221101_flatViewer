@@ -1,5 +1,4 @@
 export const createWall = (data, mat) => {
-
     console.log(data)
 
     const { path } = data
@@ -7,17 +6,19 @@ export const createWall = (data, mat) => {
     const v = []
     const c = []
 
-    for (let i = 0; i < path.length; ++i) {
+    for (let i = 0; i < path.length - 1; ++i) {
+        const offsetZ = Math.random() * 100
+        const offsetX = Math.random() * 100
         const t1 = path[i]
         const t2 = path[i + 1] || path[0]
         v.push( 
-           t1[0], 0, t1[1],
-           t2[0], 0, t2[1],
-           t2[0], 2500, t2[1],
+           t1[0] + offsetX, 0, t1[1] + offsetZ,
+           t2[0] + offsetX, 0, t2[1] + offsetZ,
+           t2[0] + offsetX, 2500, t2[1] + offsetZ,
            
-           t1[0], 0, t1[1],
-           t2[0], 2500, t2[1],
-           t1[0], 2500, t1[1],
+           t1[0] + offsetX, 0, t1[1] + offsetZ,
+           t2[0] + offsetX, 2500, t2[1] + offsetZ,
+           t1[0] + offsetX, 2500, t1[1] + offsetZ,
         )
 
         const col = [Math.random(), Math.random(), Math.random()]

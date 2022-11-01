@@ -14,7 +14,7 @@ export const createMeshFlat = (root) => {
             vertexColors: true,
         }),
         wall: new THREE.MeshPhongMaterial({
-            color: 0xff0000,
+            color: 0xffffff,
             side: THREE.DoubleSide,
             specular: 0x333333,
             vertexColors: true,
@@ -44,6 +44,11 @@ export const createMeshFlat = (root) => {
         const d = createWall(r, materials.wall)
         cont.add(d)
     }
+
+    const r = dataRooms['outer-perimeter'][0][4]
+    const d = createWall(r, materials.wall)
+    cont.add(d)
+
 
 
 
