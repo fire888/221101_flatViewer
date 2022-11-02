@@ -1,3 +1,14 @@
+const getAngle = (x, y) => {
+    let inRads = Math.atan2(y, x);
+    if (inRads < 0)
+        inRads = Math.abs(inRads);
+    else
+        inRads = 2 * Math.PI - inRads;
+
+    return inRads
+}
+
+
 export const createSchemeFlat = (data) => {
     const d = {
         windows: [],
@@ -38,13 +49,19 @@ export const createSchemeFlat = (data) => {
 
                 t = Math.sqrt(dx * dx + dz * dz)
             }
+            let angle
+            {
+                const x1 = ob.location[0].path[0][0]
+                const x2 = ob.location[0].path[1][0]
 
+                const z1 = ob.location[0].path[0][1]
+                const z2 = ob.location[0].path[1][1]
 
+                const x0 = x1 - x2 
+                const z0 = z1 - z2 
 
-
-
-
-
+                angle = getAngle(x0, z0)
+            }
 
             const props = {
                 class: ob.class,
@@ -59,6 +76,7 @@ export const createSchemeFlat = (data) => {
                 refWall_p3_p4: ob.location[1]['ref-wall'],
                 w,
                 t,
+                angle,
             }
             
             if (ob.class === "window") {
