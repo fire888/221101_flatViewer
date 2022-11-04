@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-const BACK_COLOR = 0x333333
+const BACK_COLOR = 0x888888
 
 
 

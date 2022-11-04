@@ -98,7 +98,6 @@ export const createWindow = (data, mat, matGl) => {
     )
 
     /** inner dividers */
-
     const step = w / Math.ceil(w / 800)        
     for (let i = step; i < w; i += step) {
         v.push(
@@ -249,7 +248,6 @@ export const createWindow = (data, mat, matGl) => {
     geometryGl.computeVertexNormals()
     const mGl = new THREE.Mesh(geometryGl, matGl)
     m.add(mGl)
-    //const glass = new THREE.Mesh
 
     return m
 }
