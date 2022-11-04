@@ -11,12 +11,19 @@ export const createWindow = (data, mat) => {
 
     const v = []
     const c = []
+    const u = []
 
     const wR = 50
     const tr = 40
     const htr = tr / 2
 
     const { w, h } = data
+
+    const u6z = [
+        0, 0,   0, 0,   0, 0, 
+        0, 0,   0, 0,   0, 0, 
+    ]
+
 
     /** outer */
     v.push(
@@ -44,6 +51,13 @@ export const createWindow = (data, mat) => {
             [wR, h - wR, htr],
             [0, h, htr],
         ),
+    )
+
+    u.push(
+        ...u6z,
+        ...u6z,
+        ...u6z,
+        ...u6z,
     )
 
     /** inner */
@@ -74,6 +88,13 @@ export const createWindow = (data, mat) => {
        ),
     )
 
+    u.push(
+        ...u6z,
+        ...u6z,
+        ...u6z,
+        ...u6z,
+    )
+
     /** tickness */
     v.push(
         ...createFace4(
@@ -100,6 +121,13 @@ export const createWindow = (data, mat) => {
             [w - wR, h - wR, -htr],
             [w - wR, h - wR, htr],
         ),
+    )
+
+    u.push(
+        ...u6z,
+        ...u6z,
+        ...u6z,
+        ...u6z,
     )
 
     /** inner dividers */
@@ -132,6 +160,13 @@ export const createWindow = (data, mat) => {
             ),
         )
 
+        u.push(
+            ...u6z,
+            ...u6z,
+            ...u6z,
+            ...u6z,
+        )
+
 
         /** toggle */
         if ((i + (step + 100)) > w) {
@@ -148,6 +183,11 @@ export const createWindow = (data, mat) => {
                     [i + htr, h / 2 - 140, -80],
                     [i - htr, h / 2 - 140, -80],
                 ),
+            )
+
+            u.push(
+                ...u6z,
+                ...u6z,
             )
 
             /** line */
@@ -193,6 +233,13 @@ export const createWindow = (data, mat) => {
         ),
     )
 
+    u.push(
+        0, .75,  .25, .75,  .25, 1,  0, .75,  .25, 1,  0, 1,
+        ...u6z,
+        ...u6z,
+        ...u6z,
+    )
+
     /** warm */
     v.push(
         ...createFace4(
@@ -207,6 +254,11 @@ export const createWindow = (data, mat) => {
             [w - 150, - 150, -170],
             [150, - 150, -170],
         ),
+    )
+
+    u.push(
+        ...u6z,
+        ...u6z,
     )
 
     /** cap walls */
@@ -233,25 +285,37 @@ export const createWindow = (data, mat) => {
             [0, h, -th],
         ),
         ...createFace4(
-            [0, 0, th],
+            [0, 0, 0],
+            [w, 0, 0],
             [w, 0, th],
-            [w, 0, -th],
-            [0, 0, -th],
+            [0, 0, th],
         ),
+    )
+
+    u.push(
+        .25, .75, .5, .75, .5, 1,   .25, .75, .5, 1, .25, 1,
+        .25, .75, .5, .75, .5, 1,   .25, .75, .5, 1, .25, 1,
+        ...u6z,
+        ...u6z,
     )
 
 
 
     const v32 = new Float32Array(v)
-    //const c32 = new Float32Array(c)
     const geometry = new THREE.BufferGeometry()
     geometry.setAttribute('position', new THREE.BufferAttribute(v32, 3))
-    //geometry.setAttribute('color', new THREE.BufferAttribute(c32, 3))
+
+    const u32 = new Float32Array(u)    
+    geometry.setAttribute('uv2', new THREE.BufferAttribute(u32, 2))
+
     geometry.computeVertexNormals()
 
     const m = new THREE.Mesh(geometry, window)
     m.position.set(data.x, data.h0, data.z)
     m.rotation.y = data.angle
+    if (data.angle === 3.141592653589793) {
+        m.scale.set(1, 1, -1)
+    }
 
 
     const v32glass = new Float32Array([

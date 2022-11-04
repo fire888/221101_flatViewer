@@ -1,4 +1,6 @@
-export const createMaterials = () => {
+
+
+export const createMaterials = (assets) => {
     const materials = {
         room: new THREE.MeshPhongMaterial({
             color: 0xdddddd,
@@ -16,6 +18,8 @@ export const createMaterials = () => {
             color: 0xffffff,
             side: THREE.DoubleSide,
             specular: 0x333333,
+            aoMap: assets.w_ao_map,
+            aoMapIntensity: 1,
             ///vertexColors: true,
         }),
         lineG1: new THREE.LineBasicMaterial({

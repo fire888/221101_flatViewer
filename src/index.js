@@ -8,7 +8,7 @@ import { GLTFExporter } from './helpers/GLTFExporter'
 //import { createUi } from './ui/ui'
 import { createStudio } from './Entities/studio'
 import { createContainerFlat } from './Entities/containerFlat'
-import texture from './assets/scene-model-map.jpg'
+import texture from './assets/w_ao.jpg'
 
 
 const createrMeshes = root => {
@@ -40,7 +40,9 @@ const threeApp = () => {
 
     const loader = new THREE.TextureLoader();
     loader.load(texture, texture => { 
-        root.texture = texture
+        root.assets = {
+            'w_ao_map': texture,
+        }
         createrMeshes(root) 
     })
 

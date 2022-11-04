@@ -17,7 +17,7 @@ const creaters = {
 
 
 export const  createContainerFlat = (root) => {
-    const materials = createMaterials()
+    const materials = createMaterials(root.assets)
 
     const cont = new THREE.Object3D() 
     cont.scale.set(0.01, 0.01, 0.01)

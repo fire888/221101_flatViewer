@@ -26,13 +26,32 @@ export const createSchemeFlat = (data) => {
             let w
             let x
             let z
+
+            let l0 = ob.location[0]
+            let l1 = ob.location[1]
+
+
+            // if (ob.class === 'window') {
+            //     console.log('----w', ob.id)
+            //     for (let i = 0; i < data['outer-perimeter'][0].length; ++i) {
+            //         console.log(data['outer-perimeter'][0][i].id, ob.location[0]['ref-wall'])
+            //         if (data['outer-perimeter'][0][i].id === ob.location[0]['ref-wall']) {
+            //             console.log('!!! l0', ob.location[0].id)
+            //         }
+            //         if (data['outer-perimeter'][0][i].id === ob.location[1]['ref-wall']) {
+            //             console.log('!!! l1', ob.location[1]['ref-wall'])
+            //         }
+            //     }
+            // }
+
+
             {
-                const x1 = ob.location[0].path[0][0]
-                const x2 = ob.location[0].path[1][0]
-                x = (x2 + ob.location[1].path[1][0]) / 2
-                const z1 = ob.location[0].path[0][1]
-                const z2 = ob.location[0].path[1][1]
-                z = (z2 + ob.location[1].path[1][1]) / 2 
+                const x1 = l0.path[0][0]
+                const x2 = l0.path[1][0]
+                x = (x2 + l1.path[1][0]) / 2
+                const z1 = l0.path[0][1]
+                const z2 = l0.path[1][1]
+                z = (z2 + l1.path[1][1]) / 2 
 
                 const dx = Math.abs(x2 - x1) 
                 const dz = Math.abs(z2 - z1) 
