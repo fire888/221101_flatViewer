@@ -1,7 +1,7 @@
 export const createMaterials = () => {
     const materials = {
         room: new THREE.MeshPhongMaterial({
-            color: 0xadadbb,
+            color: 0xdddddd,
             side: THREE.DoubleSide,
             specular: 0x333333,
             //vertexColors: true,
@@ -13,10 +13,13 @@ export const createMaterials = () => {
             //vertexColors: true,
         }),
         window: new THREE.MeshPhongMaterial({
-            color: 0xdddddd,
+            color: 0xffffff,
             side: THREE.DoubleSide,
             specular: 0x333333,
             ///vertexColors: true,
+        }),
+        lineG1: new THREE.LineBasicMaterial({
+            color: 0x888866,
         }),
         windowGlass: new THREE.MeshPhongMaterial({
             color: 0x00ffff,

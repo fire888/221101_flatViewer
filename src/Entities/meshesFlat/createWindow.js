@@ -1,8 +1,13 @@
 import { createFace4 } from '../../helpers/geomHelper'
 
 
-export const createWindow = (data, mat, matGl) => {
+export const createWindow = (data, mat) => {
     console.log('!!! window', data)
+
+    const { window, windowGlass, lineG1 } = mat
+
+
+    const arrLines = []
 
     const v = []
     const c = []
@@ -127,6 +132,7 @@ export const createWindow = (data, mat, matGl) => {
             ),
         )
 
+
         /** toggle */
         if ((i + (step + 100)) > w) {
             v.push(
@@ -143,6 +149,19 @@ export const createWindow = (data, mat, matGl) => {
                     [i - htr, h / 2 - 140, -80],
                 ),
             )
+
+            /** line */
+            const lv = [
+                i - htr, h / 2, -80,
+                i - htr, h / 2 - 140, -80,
+                i + htr, h / 2 - 140, -80,
+                i + htr, h / 2, -80,
+            ]
+            const v32L = new Float32Array(lv)
+            const gl = new THREE.BufferGeometry()
+            gl.setAttribute('position', new THREE.BufferAttribute(v32L, 3))
+            const line = new THREE.Line(gl, lineG1)
+            arrLines.push(line) 
         }
     }
 
@@ -230,7 +249,7 @@ export const createWindow = (data, mat, matGl) => {
     //geometry.setAttribute('color', new THREE.BufferAttribute(c32, 3))
     geometry.computeVertexNormals()
 
-    const m = new THREE.Mesh(geometry, mat)
+    const m = new THREE.Mesh(geometry, window)
     m.position.set(data.x, data.h0, data.z)
     m.rotation.y = data.angle
 
@@ -246,8 +265,38 @@ export const createWindow = (data, mat, matGl) => {
     const geometryGl = new THREE.BufferGeometry()
     geometryGl.setAttribute('position', new THREE.BufferAttribute(v32glass, 3))
     geometryGl.computeVertexNormals()
-    const mGl = new THREE.Mesh(geometryGl, matGl)
+    const mGl = new THREE.Mesh(geometryGl, windowGlass)
     m.add(mGl)
+
+
+    /** line */
+    const lv = [
+        w, 0, th,
+        w, h, th,
+        0, h, th,
+        0, 0, th,
+        w, 0, th,
+
+        w, 0, -th,
+        w, h, -th,
+        0, h, -th,
+        0, 0, -th,
+
+        0, -40, -th,
+        0, -40, -200,
+        w, -40, -200,
+        w, -40, -th,
+        //w, 0, th,
+    ]
+    const v32L = new Float32Array(lv)
+    const gl = new THREE.BufferGeometry()
+    gl.setAttribute('position', new THREE.BufferAttribute(v32L, 3))
+    const line = new THREE.Line(gl, lineG1)
+    m.add(line)
+
+    for (let i = 0; i < arrLines.length; ++i) {
+        m.add(arrLines[i])
+    }
 
     return m
 }
