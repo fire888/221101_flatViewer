@@ -27,7 +27,7 @@ export const  createContainerFlat = (root) => {
 
 
     for (let i = 0; i < scheme.windows.length; ++i) {
-        const mesh = createWindow(scheme.windows[i], materials.window)
+        const mesh = createWindow(scheme.windows[i], materials.window, materials.windowGlass)
         cont.add(mesh)
     }
     for (let i = 0; i < scheme.doors.length; ++i) {

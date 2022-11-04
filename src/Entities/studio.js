@@ -13,8 +13,8 @@ export const createStudio = (cubeMap) => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.set( 0, 100, 100);
-    camera.lookAt(0, 0, 0)
+    camera.position.set( 0, 100, 200);
+    camera.lookAt(100, 0, 0)
     scene.add(camera)
 
     const renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -24,19 +24,9 @@ export const createStudio = (cubeMap) => {
 
     container.appendChild( renderer.domElement );
 
-    const light = new THREE.DirectionalLight(0xffffff, 1)
-    light.position.set(0, 1, 1)
+    const light = new THREE.PointLight(0xffffff, 1)
+    light.position.set(50, 50, 0)
     camera.add(light)
-    //light.castShadow = true; // default false
-    //light.shadow.mapSize.width = 2048; // default
-    //light.shadow.mapSize.height = 2048; // default
-    //light.shadow.camera.near = 0.5; // default
-    //light.shadow.camera.far = 500; // default
-
-
-    // const light2 = new THREE.PointLight( 0xffffff, 1.5 )
-    // light2.position.set(-30, 20, -40)
-    // camera.add(light2)
 
     const ambLight = new THREE.AmbientLight(0x555555, 1)
     scene.add(ambLight)
@@ -45,7 +35,7 @@ export const createStudio = (cubeMap) => {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.minDistance = 2;
     controls.maxDistance = 40000;
-    controls.target.set( 0, 0, 0 );
+    controls.target.set(25, 0, 0 );
     controls.update();
     //controls.maxPolarAngle = Math.PI / 2 - 0.1
 
